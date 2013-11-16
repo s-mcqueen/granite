@@ -31,7 +31,7 @@ $(function(){
         // edit the template with the img metadata
         var url = data[i].url,
             id = data[i].id,
-            hashtag = data[i].hashtag,
+            hashtag = $('#searchbar').val();
             user = data[i].user,
             status = data[i].status;
 
@@ -70,9 +70,13 @@ $(function(){
         console.log("here");
       });
 
+      var vote = false;
+
       // upvote
       $('.ion-ios7-plus').on('click', function(e) {
         e.preventDefault();   
+
+        vote = true;
 
         var id = $(this).closest('.img').attr('data-id');      
 
@@ -83,27 +87,35 @@ $(function(){
       $('.icon.ion-minus-circled').on('click', function(e) {
         e.preventDefault();   
 
+        vote = true;
+
         var id = $(this).closest('.img').attr('data-id');
 
         $.post("/vote", {id : id, vote: 0});
       });
 
-      // $(".img").on('click', function(e) {
-      //   e.preventDefault();
-        
+      $(".img").on('click', function(e) {
+        e.preventDefault();
 
-      //   if ($(".modal-img") != null) {
-      //     $(".modal-img").remove();
-      //   }
+        if (vote == false) {
 
-      //   var url = $(this).attr('style').split("url(\"")[1].split("\"")[0];
-      //   var tempUrl = "<div class='modal-img' style='background: url(\"" + url + "\"); width: 600px; height: 600px;'>" +
-      //                 "</div>";    
 
-      //   $("#img-modal").modal("show");
+          if ($(".modal-img") != null) {
+            $(".modal-img").remove();
+          }
 
-      //   $('.modal-body').append(tempUrl);
-      // });
+          var url = $(this).attr('style').split("url(")[1].split(")")[0];
+          var tempUrl = "<div class='modal-img' style='background: url(\"" + url + "\"); width: 600px; height: 600px;'>" +
+                        "</div>";    
+
+          $("#img-modal").modal("show");
+
+          $('.modal-body').append(tempUrl);          
+
+        }
+
+        vote = false;
+      });
       
       }
   // }, 200);
