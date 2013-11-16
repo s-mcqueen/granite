@@ -1,9 +1,12 @@
 $(function(){
 
-  $('#searchbar').blur(function() {
+
+  $('#searchbar').bind('keypress', function(e) {
+    if(e.keyCode==13){
       $.get("/images/" + $('#searchbar').val(), function(data) {    
         console.log( "Load was performed." );    
       }).done(populate);
+    }
   });
 
   // setInterval(function() {
