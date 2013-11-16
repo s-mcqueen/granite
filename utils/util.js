@@ -9,9 +9,9 @@ var Img = mongoose.model('Image');
 exports.pushToMongo = function (data, callback) {
   for (var i = 0; i < data.length; i++) {
     if (data[i].type == 'image') {
-
-      if (data[i].caption == null) {
-        data[i].caption.text = '';
+      var caption = '';
+      if (data[i].caption != null) {
+        caption = data[i].caption.text;
       }
 
       // get image ready for insert
@@ -19,7 +19,7 @@ exports.pushToMongo = function (data, callback) {
         instagramId : data[i].id,
         instagramUsername : data[i].username,
         instagramCreationTime : data[i].created_time,
-        caption : data[i].caption.text,
+        caption : caption,
         hashtags : data[i].tags,
         smallRes : data[i].images.thumbnail.url,
         mediumRes : data[i].images.low_resolution.url,
