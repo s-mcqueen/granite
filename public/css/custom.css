@@ -34,7 +34,7 @@ body {
   color: white;
 }
 
-#feed {
+.feed {
   position: absolute;
   left: 202px;
   min-width: 1000px;
