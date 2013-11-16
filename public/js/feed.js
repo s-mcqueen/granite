@@ -1,7 +1,10 @@
 $(function(){
 
+  // sample hashtag, change later
+  var tag = "babes"; 
+
   // grab image data
-  $.get("/images", function(data) {    
+  $.get("/images/" + tag, function(data) {    
     console.log( "Load was performed." );    
   }).done(populate);
 
