@@ -1,10 +1,13 @@
 $(function(){
 
-  // sample hashtag, change later
-  var tag = "lasvegasstrip"; 
+  $('#searchbar').blur(function() {
+      $.get("/images/" + $('#searchbar').val(), function(data) {    
+        console.log( "Load was performed." );    
+      }).done(populate);
+  });
 
   // grab image data
-  $.get("/images/" + tag, function(data) {    
+  $.get("/images/" + $('#searchbar').val(), function(data) {    
     console.log( "Load was performed." );    
   }).done(populate);
 
