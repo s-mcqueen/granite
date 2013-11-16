@@ -1,7 +1,7 @@
 $(function(){
 
   // sample hashtag, change later
-  var tag = "babes"; 
+  var tag = "lasvegasstrip"; 
 
   // grab image data
   $.get("/images/" + tag, function(data) {    
@@ -48,26 +48,18 @@ $(function(){
     $('.ion-ios7-plus').on('click', function(e) {
       e.preventDefault();   
 
-      var id = $(this).closest('.img').attr('data-id')
+      var id = $(this).closest('.img').attr('data-id');      
 
-      var voteData = [id, 1];
-
-      $.post("/vote", function(voteData,status) {
-        console.log("upvote");
-      });
+      $.post("/vote", {id : id, vote: 1});
     });
 
     // downvote
     $('.icon.ion-minus-circled').on('click', function(e) {
       e.preventDefault();   
 
-      var id = $(this).closest('.img').attr('data-id')
+      var id = $(this).closest('.img').attr('data-id');
 
-      var voteData = [id, 0];
-
-      $.post("/vote", function(voteData,status) {
-        console.log("downvote");
-      });
+      $.post("/vote", {id : id, vote: 0});
     });
 
   }

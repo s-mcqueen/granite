@@ -1,5 +1,3 @@
-
-
 /*
  * POST: up and downvoting images.
  */
