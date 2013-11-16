@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     ObjectId = Schema.ObjectId;
 
 var ImageSchema = new Schema({
-      instagramId : Number,
+      instagramId : String,
       instagramUsername : String,
       instagramCreationTime : String,
       caption : String,
