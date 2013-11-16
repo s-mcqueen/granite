@@ -31,11 +31,12 @@ app.post('/callback', function(req, res){
         for (var i = 0; i < data.length; i++) {
           if (data[i].type == 'image') {
             // data[i] is a photo obj
-            // data[i].id will be our database _id to avoid duplicates
+            // data[i].id will be our database id to avoid duplicates
           }
         }
       }
     });
+  // reply to let instagram know we didnt die
   res.send('Thanks');
 
 });
