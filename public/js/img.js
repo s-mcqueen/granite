@@ -1,12 +1,19 @@
 $(function(){
-	$('.img-layer').hover(function(e) {
+	$('.img').mouseenter(function(e) {
 		e.preventDefault();
 
-		alert("here");
+		$('.img-layer').show();
 		console.log("here");
 
+  });
 
+  $('.img').mouseleave(function(e) {
+		e.preventDefault();
+
+		$('.img-layer').hide();
+		console.log("here");
 
   });
+
 
 });
