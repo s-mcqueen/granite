@@ -16,7 +16,7 @@ var express = require('express'),
 var app = express();
 
 // setup mongo
-if (app.get('env') == 'production') {
+if (app.get('env') != 'development') {
   console.log("prod");
   // TODO: set up production database
   var dbString = 'mongodb://evan:smegma69@ds053678.mongolab.com:53678/exposure';
