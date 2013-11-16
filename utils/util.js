@@ -39,4 +39,4 @@ exports.pushToMongo = function (data, callback) {
       })(newImage, callback);
     }
   }
-}
+};
