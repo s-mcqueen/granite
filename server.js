@@ -7,9 +7,21 @@ var express = require('express'),
     routes = require('./routes'),
     voting = require('./routes/voting')
     http = require('http'),
-    path = require('path');
+    path = require('path'),
+    mongoose = require('mongoose');
+
 
 var app = express();
+
+// setup mongo
+if (app.get('env') == 'production') {
+  // TODO: set up production database
+  var dbString = '';
+} else {
+  var dbString = 'mongodb://localhost/granite';
+}
+
+mongoose.connect(dbString);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -37,3 +49,4 @@ app.post('/vote', voting.vote);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
