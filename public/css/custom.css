@@ -62,11 +62,22 @@ body {
 
 }
 
-#img-modal {
-  margin: auto;
-  margin-top: 20%;
+.modal {
+  padding: 0;
+}
+
+#img-modal {  
+  margin: auto;  
   width: 645px;
   height: 800px;
+}
+
+.close {
+  color: black;
+  position: relative;
+  top: 20px;
+  z-index: 5;
+  left: 5;
 }
   
 .share {
