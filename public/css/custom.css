@@ -42,36 +42,31 @@ body {
   color: white;
 }
 
-/*.img {
-	background: url('/img/hack.png');
+.img {
   position: relative;
-  width: 400px;
-  height: 400px;
 } 
-*/
-/*.img-layer {      
+
+.img-layer {      
   display:none;
   position: absolute;
   top: 0;
   left: 0;
-  width: 400px;
-  height: 400px;
   background-color: #666565;
   opacity:0.5; 
   font-size: 60px; 
   color: white;
 }
-*/
-/*.icon.ion-ios7-plus {
+
+.icon.ion-ios7-plus {
   position: relative;
   left: 55%;
   top: 70%;
 }
 
-*/
-/*.icon.ion-minus-circled {
+
+.icon.ion-minus-circled {
   position: relative;
   left: 15%;
   top: 70%;
 }
-*/
+
