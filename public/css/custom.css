@@ -1,9 +1,15 @@
+body {
+  margin: 0;
+}
+
 #left-sidebar {
   position: fixed;
+  margin: 0;
   min-height: 100%;
   width: 200px;
   background-color: hsl(135,44%,46%);
   color: white;
+  border-right: solid #ddd 2px;
 }
 
 #logo {
@@ -13,46 +19,54 @@
 
 #search {
   margin: 0 auto;
+  width: 50%;
 }
 
-#feed {
+#left-sidebar div {
+  margin: 25px;
+}
+
+#left-sidebar div ul {
+  list-style: none;
+}
+
+#left-sidebar div li a{
+  color: white;
+}
+
+.feed {
   position: absolute;
-  left: 200px;
+  left: 202px;
   min-width: 1000px;
   border: solid blue 2px;
   color: white;
 }
 
-/*.img {
-	background: url('/img/hack.png');
+.img {
   position: relative;
-  width: 400px;
-  height: 400px;
 } 
-*/
-/*.img-layer {      
+
+.img-layer {      
   display:none;
   position: absolute;
   top: 0;
   left: 0;
-  width: 400px;
-  height: 400px;
   background-color: #666565;
   opacity:0.5; 
   font-size: 60px; 
   color: white;
 }
-*/
-/*.icon.ion-ios7-plus {
+
+.icon.ion-ios7-plus {
   position: relative;
   left: 55%;
   top: 70%;
 }
 
-*/
-/*.icon.ion-minus-circled {
+
+.icon.ion-minus-circled {
   position: relative;
   left: 15%;
   top: 70%;
 }
-*/
+
