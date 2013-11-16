@@ -47,6 +47,10 @@ body {
   text-decoration: none;
 }
 
+#img-modal {
+  
+}
+
 .feed {
   position: absolute;
   left: 202px;
@@ -85,4 +89,6 @@ body {
   left: 15%;
   top: 70%;
 }
+
+
 
