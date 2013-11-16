@@ -1,10 +1,9 @@
 $(function(){
-	$('.img').mouseenter(function(e) {
+  $('.img').mouseenter(function(e) {
 		e.preventDefault();
 
 		$('.img-layer').show();
 		console.log("here");
-
   });
 
   $('.img').mouseleave(function(e) {
@@ -12,8 +11,5 @@ $(function(){
 
 		$('.img-layer').hide();
 		console.log("here");
-
   });
-
-
 });
