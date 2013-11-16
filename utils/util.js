@@ -69,6 +69,8 @@ exports.formatImagesForFrontend = function (images, res) {
       "url" : images[i].largeRes,
       "score" : score,
       "size" : size,
+      "user" : images[i].instagramUsername,
+      "status" : images[i].caption
     };
     returnImages[i] = img;
   }
