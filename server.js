@@ -17,6 +17,7 @@ var app = express();
 
 // setup mongo
 if (app.get('env') == 'production') {
+  console.log("prod");
   // TODO: set up production database
   var dbString = 'mongodb://evan:smegma69@ds053678.mongolab.com:53678/exposure';
 } else {

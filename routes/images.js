@@ -15,10 +15,10 @@ exports.images = function(req, res) {
 
 function getPhotos (hashtag, res) {
   var MIN_PHOTOS = 10;
-    Img.find({hashtags: { $in: [hashtag]}}, function(err, data){
+    Img.find({hashtags: { $in: [hashtag]}}, function(err, images){
       if (err) return {};
         // if there are less than MIN_PHOTOS in the database matching the hashtag we should backload
-      if (data.length < MIN_PHOTOS) {
+      if (images.length < MIN_PHOTOS) {
         backloadPhotos(hashtag, res);
       } else {
         util.formatImagesForFrontend(images, res);
