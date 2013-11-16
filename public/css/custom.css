@@ -1,3 +1,27 @@
+#left-sidebar {
+  position: fixed;
+  min-height: 100%;
+  width: 200px;
+  background-color: hsl(135,44%,46%);
+  color: white;
+}
+
+#logo {
+  margin: 50px auto;
+  width: 50%;
+}
+
+#search {
+  margin: 0 auto;
+}
+
+#content {
+  position: absolute;
+  left: 200px;
+  min-width: 1000px;
+  border: solid blue 2px;
+}
+
 .img {
 	background: url('/img/hack.png');
   position: relative;
@@ -15,6 +39,7 @@
   background-color: #666565;
   opacity:0.5; 
   font-size: 60px; 
+  color: white;
 }
 
 .icon.ion-ios7-plus {
