@@ -1,7 +1,7 @@
 $(function(){
 
   // sample hashtag, change later
-  var tag = "babes"; 
+  var tag = "lasvegasstrip"; 
 
   // grab image data
   $.get("/images/" + tag, function(data) {    
