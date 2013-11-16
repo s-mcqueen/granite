@@ -50,9 +50,9 @@ $(function(){
 
       var id = $(this).closest('.img').attr('data-id')
 
-      data = [id, 1];
+      var voteData = [id, 1];
 
-      $.post("/vote", function(data,status) {
+      $.post("/vote", function(voteData,status) {
         console.log("upvote");
       });
     });
@@ -63,9 +63,9 @@ $(function(){
 
       var id = $(this).closest('.img').attr('data-id')
 
-      data = [id, 0];
+      var voteData = [id, 0];
 
-      $.post("/vote", function(data,status) {
+      $.post("/vote", function(voteData,status) {
         console.log("downvote");
       });
     });
