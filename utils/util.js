@@ -24,8 +24,8 @@ exports.pushToMongo = function (data, callback) {
         smallRes : data[i].images.thumbnail.url,
         mediumRes : data[i].images.low_resolution.url,
         largeRes : data[i].images.standard_resolution.url,
-        upvotes : 0,
-        downvotes : 0
+        upvotes : Math.floor((Math.random()*10)+1),
+        downvotes : Math.floor((Math.random()*3)+1)
       });
 
       (function (imageToSave, innerCallback) {
