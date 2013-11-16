@@ -3,6 +3,8 @@
     <title>Welcome to Instafeed</title>    
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script type="text/javascript" src="js/masonry.pkgd.js"></script>
+    <script type="text/javascript" src="js/sticky.js"></script>
+
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
     <link href="css/ionicons.css" rel="stylesheet" >
     <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
@@ -10,21 +12,14 @@
   </head>
   <body>
 
-    <!-- Sidebar -->
-    <div id="left-sidebar">
-      <h1 id="logo">Granit</h1>
-      <input id="search" type="search" placeholder="search hashtags"></input>
-      <div>
-        <p><h4>Popular hashtags:</h4></p>
-        <ul>
-          <li><a href="#">#5Chackathon</a></li>
-          <li><a href="#">#LasVegasStrip</a></li>
-          <li><a href="#">#MonkeyButts</a></li>
-          <li><a href="#">#IceCream</a></li>
-          <li><a href="#">#Sean</a></li>
-        </ul>
-        <div class="ion-social-facebook share"></div>
-        <div class="ion-social-twitter share"></div>
+    <div id="curtain">
+      <div id="titlewrap">
+        <h1 id="title">exsposu.re</h1>      
+      </div>
+    </div>
+    <div class="search" id="sticky">
+      <div id="searchwrap">
+        <input id="searchbar" type="text">      
       </div>
     </div>
 
@@ -45,6 +40,7 @@
     
     <script type="text/javascript" src="js/img.js"></script>
     <script type="text/javascript" src="js/feed.js"></script>
+
   </body>
 </html>
 
