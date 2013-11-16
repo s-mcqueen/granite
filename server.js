@@ -4,8 +4,9 @@
  */
 
 var express = require('express'),
-    routes = require('./routes'),
-    voting = require('./routes/voting')
+    index = require('./routes/index'),
+    images = require('./routes/images'),
+    voting = require('./routes/voting'),
     http = require('http'),
     path = require('path'),
     mongoose = require('mongoose');
@@ -42,7 +43,8 @@ if ('development' == app.get('env')) {
 /*
  * Routes
  */
-app.get('/', routes.index);
+app.get('/', index.page);
+app.get('/images', images.images);
 app.post('/vote', voting.vote);
 
 

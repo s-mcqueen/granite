@@ -15,21 +15,21 @@
   margin: 0 auto;
 }
 
-#content {
+#feed {
   position: absolute;
   left: 200px;
   min-width: 1000px;
   border: solid blue 2px;
 }
 
-.img {
+/*.img {
 	background: url('/img/hack.png');
   position: relative;
   width: 400px;
   height: 400px;
 } 
-
-.img-layer {      
+*/
+/*.img-layer {      
   display:none;
   position: absolute;
   top: 0;
@@ -41,16 +41,17 @@
   font-size: 60px; 
   color: white;
 }
-
-.icon.ion-ios7-plus {
+*/
+/*.icon.ion-ios7-plus {
   position: relative;
   left: 55%;
   top: 70%;
 }
 
-
-.icon.ion-minus-circled {
+*/
+/*.icon.ion-minus-circled {
   position: relative;
   left: 15%;
   top: 70%;
 }
+*/
