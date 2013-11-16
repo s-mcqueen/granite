@@ -65,9 +65,13 @@ $(function(){
     $(".img").on('click', function(e) {
       e.preventDefault();
 
-      var url = $(this);  
+      var url = $(this).attr('style').split("url(\"")[1].split("\"")[0]; 
+      var tempUrl = "<div class='modal-img' style='background: url(\"" + url + "\"); width: 600px; height: 600px;'>" +
+                    "</div>";    
 
       $("#img-modal").modal("show");
+
+      $('.modal-body').append(tempUrl);
     });
 
   }
