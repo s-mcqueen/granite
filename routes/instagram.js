@@ -15,7 +15,7 @@ exports.test = function(req, res) {
  *
  */
 exports.handshake = function(req, res){
-  res.send(request.query['hub.challenge']);
+  res.send(req.query['hub.challenge']);
 };
 
 /*
