@@ -1,7 +1,10 @@
 $(function(){
 
+  // sample hashtag, change later
+  var tag = "babes"; 
+
   // grab image data
-  $.get("/images", function(data) {    
+  $.get("/images/" + tag, function(data) {    
     console.log( "Load was performed." );    
   }).done(populate);
 
@@ -14,7 +17,8 @@ $(function(){
       
       // edit the template with the img metadata
       var url = data[i].url;
-      var templ = "<div class='img' id='id" + i + "' style='background: url(\"" + url + "\"); width: 400px; height: 400px;'>" +
+      var id = data[i].id;
+      var templ = "<div class='img' id='id" + i + "' data-id='" + id + "' style='background: url(\"" + url + "\"); width: 400px; height: 400px;'>" +
                     "<div class='img-layer' style= 'width: 400px; height: 400px;'>" + 
                       "<div class='icon ion-minus-circled'> </div> " +
                       "<div class='icon ion-ios7-plus'> </div>" +                  
@@ -38,6 +42,24 @@ $(function(){
 
       $(this).children().hide()
       console.log("here");
+    });
+
+    // upvote
+    $('.ion-ios7-plus').on('click', function(e) {
+      e.preventDefault();   
+
+      var id = $(this).closest('.img').attr('data-id');      
+
+      $.post("/vote", {id : id, vote: 1});
+    });
+
+    // downvote
+    $('.icon.ion-minus-circled').on('click', function(e) {
+      e.preventDefault();   
+
+      var id = $(this).closest('.img').attr('data-id');
+
+      $.post("/vote", {id : id, vote: 0});
     });
 
   }
