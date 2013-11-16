@@ -47,12 +47,15 @@ body {
   text-decoration: none;
 }
 
+.share {
+  font-size: 24;
+}
+
 .feed {
   position: absolute;
   left: 202px;
   min-width: 1000px;
   color: white;
-  border: solid blue 2px;
 }
 
 .img {
