@@ -19,7 +19,7 @@ $(function(){
       var url = data[i].url;
       var id = data[i].id;
       var templ = "<div class='img' id='id" + i + "' data-id='" + id + "' style='background: url(\"" + url + "\"); width: 320px; height: 320px;'>" +
-                    "<div class='img-layer' style= 'width: 200px; height: 200px;'>" + 
+                    "<div class='img-layer' style= 'width: 320px; height: 320px;'>" + 
                       "<div class='icon ion-minus-circled'> </div> " +
                       "<div class='icon ion-ios7-plus'> </div>" +                  
                     "</div>" +
@@ -64,6 +64,8 @@ $(function(){
 
     $(".img").on('click', function(e) {
       e.preventDefault();
+
+      var url = $(this);  
 
       $("#img-modal").modal("show");
     });
