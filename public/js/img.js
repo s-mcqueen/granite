@@ -2,16 +2,14 @@ $(function(){
 	$('.img').mouseenter(function(e) {
 		e.preventDefault();
 
-		$('.img-layer').show();
-		console.log("here");
+		$('.img-layer').show();		
 
   });
 
   $('.img').mouseleave(function(e) {
 		e.preventDefault();
 
-		$('.img-layer').hide();
-		console.log("here");
+		$('.img-layer').hide();		
 
   });
 
