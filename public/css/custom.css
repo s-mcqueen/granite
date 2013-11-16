@@ -2,7 +2,7 @@
   -webkit-font-smoothing: antialiased;
 }
 
-body {
+body {  
   margin: 0;
   font-family: 'PT Sans', sans-serif;
   background-image: url('../img/satinweave.png');
@@ -62,6 +62,17 @@ body {
 
 }
 
+#img-modal {
+  margin-left: 20%;
+  margin-top: 10%;
+  width: 1000px;
+  height: 1000px;
+}
+  
+.share {
+  font-size: 24;
+}
+
 
 .feed {
   position: absolute;
@@ -78,7 +89,6 @@ body {
 
 .img-layer {      
   display:none;
-  position: absolute;
   top: 0;
   left: 0;
   background-color: #666565;
@@ -100,5 +110,11 @@ body {
   top: 70%;
 }
 
+.modal-header {
+  border-bottom: none;
+}
 
+.modal-footer {
+  border-top: none;
+}
 
