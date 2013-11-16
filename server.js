@@ -45,7 +45,7 @@ if ('development' == app.get('env')) {
  * Routes
  */
 app.get('/', index.page);
-app.get('/images', images.images);
+app.get('/images/:hashtag', images.images);
 app.post('/vote', voting.vote);
 
 // instagram routes
