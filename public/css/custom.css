@@ -52,12 +52,14 @@ body {
   left: 202px;
   min-width: 1000px;
   color: white;
+  border: solid blue 2px;
 }
 
 .img {
   position: relative;
   margin: 5px;
   box-shadow: 0px 1px 1px 1px #ccc;
+  float: left;
 } 
 
 .img-layer {      

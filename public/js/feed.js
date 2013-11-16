@@ -18,8 +18,8 @@ $(function(){
       // edit the template with the img metadata
       var url = data[i].url;
       var id = data[i].id;
-      var templ = "<div class='img' id='id" + i + "' data-id='" + id + "' style='background: url(\"" + url + "\"); width: 400px; height: 400px;'>" +
-                    "<div class='img-layer' style= 'width: 400px; height: 400px;'>" + 
+      var templ = "<div class='img' id='id" + i + "' data-id='" + id + "' style='background: url(\"" + url + "\"); width: 320px; height: 320px;'>" +
+                    "<div class='img-layer' style= 'width: 200px; height: 200px;'>" + 
                       "<div class='icon ion-minus-circled'> </div> " +
                       "<div class='icon ion-ios7-plus'> </div>" +                  
                     "</div>" +
