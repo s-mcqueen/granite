@@ -7,6 +7,7 @@ var express = require('express'),
     index = require('./routes/index'),
     images = require('./routes/images'),
     voting = require('./routes/voting'),
+    instagram = require('./routes/instagram'),
     http = require('http'),
     path = require('path'),
     mongoose = require('mongoose');
@@ -46,6 +47,12 @@ if ('development' == app.get('env')) {
 app.get('/', index.page);
 app.get('/images', images.images);
 app.post('/vote', voting.vote);
+
+// instagram routes
+app.get('/callback', instagram.handshake);
+app.post('/callback', instagram.instagramCallback);
+app.post('/test', instagram.test)
+
 
 
 http.createServer(app).listen(app.get('port'), function(){

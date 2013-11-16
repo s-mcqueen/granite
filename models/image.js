@@ -6,13 +6,11 @@ var ImageSchema = new Schema({
       instagramId : String,
       instagramUsername : String,
       instagramCreationTime : String,
-      caption : String,
-      hashtags : [String],
+      caption : { type: String, default: "" },
+      hashtags : { type: [String], default: [""] },
       smallRes : String,
       mediumRes : String,
       largeRes : String,
-      lat : Number,
-      lon : Number,
       upvotes : Number,
       downvotes : Number
     });
