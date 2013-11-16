@@ -15,8 +15,12 @@ h1 {
 #img-modal {
 }
   
-.share {
-  font-size: 24;
+.share a{
+  font-size: 36px;
+  color: #fefefe;
+  margin-left: 25px;
+  margin-top: 15px;
+  text-decoration: none;
 }
 
 #curtain{
