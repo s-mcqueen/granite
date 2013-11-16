@@ -90,6 +90,7 @@ $(function(){
 
       // $(".img").on('click', function(e) {
       //   e.preventDefault();
+        
 
       //   if ($(".modal-img") != null) {
       //     $(".modal-img").remove();
