@@ -62,6 +62,12 @@ $(function(){
       $.post("/vote", {id : id, vote: 0});
     });
 
+    $(".img").on('click', function(e) {
+      e.preventDefault();
+
+      $("#img-modal").modal("show");
+    });
+
   }
 
 });    

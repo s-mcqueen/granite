@@ -47,12 +47,18 @@ body {
   text-decoration: none;
 }
 
+#img-modal {
+}
+  
+.share {
+  font-size: 24;
+}
+
 .feed {
   position: absolute;
   left: 202px;
   min-width: 1000px;
   color: white;
-  border: solid blue 2px;
 }
 
 .img {
@@ -85,4 +91,6 @@ body {
   left: 15%;
   top: 70%;
 }
+
+
 

@@ -1,70 +1,46 @@
 require('../models/image.js');
 
 var mongoose = require('mongoose');
-var Img = mongoose.model('Image'); 
+var Img = mongoose.model('Image');
+
+var util = require('../utils/util.js'); 
+var request = require('request');
 
 
 exports.images = function(req, res) {
   var hashtag = req.params.hashtag;
-
   // go get images for that hashtag from mongo
-  Img.find({hashtags: {$in: [hashtag]}}, function(err, images) {
-    if (err) {
-      console.log(err);
-      res.json({});
-    }
-    else {
-      formatImagesForFrontend(images, res);
-    }
-  });
+  getPhotos(hashtag, res);
 };
 
-
-function formatImagesForFrontend(images, res) {
-
-  var sizeCutoffs = assignCutoffs(images);
-  
-  var returnImages = [];
-  for (var i in images) {
-    var score = (images[i].upvotes) - (images[i].downvotes)
-    var size = 0;
-
-    if (score > sizeCutoffs[1]) {
-      if (score > sizeCutoffs[0]) {
-        size = 3; // big
+function getPhotos (hashtag, res) {
+  var MIN_PHOTOS = 10;
+    Img.find({hashtags: { $in: [hashtag]}}, function(err, data){
+      if (err) return {};
+        // if there are less than MIN_PHOTOS in the database matching the hashtag we should backload
+      if (data.length < MIN_PHOTOS) {
+        backloadPhotos(hashtag, res);
       } else {
-        size = 2; // medium
+        util.formatImagesForFrontend(images, res);
       }
-    } else {
-      size = 1; // small
-    }
+    });
+};
 
-    var img = {
-      "id" : images[i].instagramId,
-      "url" : images[i].largeRes,
-      "score" : score,
-      "size" : size,
-    };
-    returnImages[i] = img;
-  }
-  res.json(returnImages);
-}
-
-
-function assignCutoffs(images) {
-
-  // create sorted array of scores
-  scoreArray = [];
-  for (var i in images) {
-    scoreArray[i] = (images[i].upvotes) - (images[i].downvotes);
-  }
-  scoreArray.sort();
-
-  // create cutoffs based on percentiles
-  topTenth = Math.round(scoreArray.length - (scoreArray.length / 10));
-  topThird = Math.round(scoreArray.length - (scoreArray.length / 3));
-  bigCutoff = scoreArray[topTenth];
-  mediumCutoff = scoreArray[topThird];
-
-  return [bigCutoff, mediumCutoff];
-}
+function backloadPhotos (hashtag, res) {
+  request('https://api.instagram.com/v1/tags/' + hashtag + '/media/recent?client_id=54a06ba8e25540f19c2cebf8937697d8',       
+    function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        var data = JSON.parse(body).data;
+        util.pushToMongo(data, function() {
+          Img.find({hashtags: { $in: [hashtag]}}, function(err, images){
+            if (err) {
+              console.log(err);
+              res.json({});
+            } else {
+              util.formatImagesForFrontend(images, res);
+            }
+          });
+        });
+      }
+    });
+};
