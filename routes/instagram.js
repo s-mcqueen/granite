@@ -36,7 +36,9 @@ app.post('/callback', function(req, res){
 * Takes instagram .data array from api call and pushes to mongo
 *
 */
-function pushToMongo (argument) {
+
+
+function pushToMongo (data) {
   for (var i = 0; i < data.length; i++) {
     if (data[i].type == 'image') {
       // get image ready for insert
