@@ -1,5 +1,5 @@
 .img {
-	background: url('public/img/hack.png');
+	background: url('/img/hack.png');
   position: relative;
   width: 400px;
   height: 400px;
@@ -16,4 +16,8 @@
 .img-layer:hover {
 	background-color: #666565;
 	opacity:0.5;
+}
+
+.img-icons {
+  background-color: #000000;
 }
