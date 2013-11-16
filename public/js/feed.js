@@ -78,7 +78,9 @@ $(function(){
 
         vote = true;
 
-        var id = $(this).closest('.img').attr('data-id');      
+        var id = $(this).closest('.img').attr('data-id');   
+
+        $(this).css('color','green');   
 
         $.post("/vote", {id : id, vote: 1});
       });
@@ -90,6 +92,8 @@ $(function(){
         vote = true;
 
         var id = $(this).closest('.img').attr('data-id');
+
+        $(this).css('color','red');  
 
         $.post("/vote", {id : id, vote: 0});
       });
@@ -110,7 +114,7 @@ $(function(){
 
           $("#img-modal").modal("show");
 
-          $('.modal-body').append(tempUrl);          
+          $('.modal-body').append(tempUrl);           
 
         }
 
