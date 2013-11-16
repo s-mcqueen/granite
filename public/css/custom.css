@@ -1,5 +1,11 @@
+* {
+  -webkit-font-smoothing: antialiased;
+}
+
 body {
   margin: 0;
+  font-family: 'PT Sans', sans-serif;
+  background-image: url('../img/satinweave.png');
 }
 
 #left-sidebar {
@@ -7,9 +13,10 @@ body {
   margin: 0;
   min-height: 100%;
   width: 200px;
-  background-color: hsl(135,44%,46%);
+  background-color: hsl(137,51%,45%);
+  background-image: url(http://instagram-static.s3.amazonaws.com/bluebar/prerelease/images/shared/noise-1.png);
   color: white;
-  border-right: solid #ddd 2px;
+  border-right: solid #aaa 2px;
 }
 
 #logo {
@@ -19,7 +26,6 @@ body {
 
 #search {
   margin: 0 auto;
-  width: 50%;
 }
 
 #left-sidebar div {
@@ -28,22 +34,30 @@ body {
 
 #left-sidebar div ul {
   list-style: none;
+  padding: 0;
 }
 
 #left-sidebar div li a{
+  color: yellow;
+  text-decoration: none;
+}
+
+#left-sidebar div li a:hover{
   color: white;
+  text-decoration: none;
 }
 
 .feed {
   position: absolute;
   left: 202px;
   min-width: 1000px;
-  border: solid blue 2px;
   color: white;
 }
 
 .img {
   position: relative;
+  margin: 5px;
+  box-shadow: 0px 1px 1px 1px #ccc;
 } 
 
 .img-layer {      
