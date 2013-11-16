@@ -80,7 +80,7 @@ $(function(){
 
         var id = $(this).closest('.img').attr('data-id');   
 
-        $(this).css('color','green');   
+        $(this).css('color','#36F343');   
 
         $.post("/vote", {id : id, vote: 1});
       });
@@ -93,7 +93,7 @@ $(function(){
 
         var id = $(this).closest('.img').attr('data-id');
 
-        $(this).css('color','red');  
+        $(this).css('color','#FF5757');  
 
         $.post("/vote", {id : id, vote: 0});
       });
