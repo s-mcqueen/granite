@@ -55,7 +55,7 @@ $(function(){
 
       $('.feed').masonry( 'reload' );
 
-      // after this is finishes, enable hover effects
+      // after this finishes, enable hover effects
       $('.img').mouseenter(function(e) {
           e.preventDefault();        
 
