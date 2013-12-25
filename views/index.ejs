@@ -1,18 +1,23 @@
 <html>
+
   <head>
     <title>Welcome to exposu.re</title>    
-    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-    <script type="text/javascript" src="js/thirdparty/masonry.pkgd.js"></script>
-    <script type="text/javascript" src="js/sticky.js"></script>
 
+    <!-- Load jquery first -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+
+    <!-- Stylesheets, icons, fonts -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
     <link href="css/thirdparty/ionicons.min.css" rel="stylesheet" >
     <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link href="css/custom.css" rel="stylesheet" >
+
   </head>
+
   <body>
 
+    <!-- Curtain -->
     <div id="curtain">
       <div class="share">
         
@@ -34,7 +39,7 @@
     </div>
 
     <!-- Feed -->
-    <div class="feed">
+    <div id="feed">
     </div>
 
     <!-- Image modal -->
@@ -50,9 +55,30 @@
         </div>      
     </div>
     
+    <!-- Third party JS libraries -->
+    <script type="text/javascript" src="js/thirdparty/bootstrap.js"></script>
+    <script type="text/javascript" src="js/thirdparty/masonry.pkgd.js"></script>
+    <script type="text/javascript" src="js/thirdparty/handlebars-v1.2.0.js"></script>
+
+    <!-- Client side JS modules -->
     <script type="text/javascript" src="js/img.js"></script>
     <script type="text/javascript" src="js/feed.js"></script>
-    <script type="text/javascript" src="js/thirdparty/bootstrap.js"></script>
-  </body>
-</html>
+    <script type="text/javascript" src="js/sticky.js"></script>
+
+    <!-- Image feed template -->
+    <script id="img-template" type="text/x-handlebars-template">
+
+      {{#images}}
+        <div class='img' largeRes={{largeRes}} data-id={{id}} data-hashtag={{hashtag}} data-user={{user}} data-status={{status}} style='background: url({{url}}); width: {{dim}}px; height: {{dim}}px; background-size: {{dim}}px {{dim}}px;'>
+          <div class='img-layer' style= 'width: {{dim}}px; height: {{dim}}px; font-size: {{fontDim}}px;'>
+            <div class='icon ion-minus-circled'> </div>  
+            <div class='icon ion-ios7-plus'> </div> 
+          </div>
+        </div>
+      {{/images}}
+
+      </script>
+
+    </body>
+  </html>
 

@@ -1,6 +1,6 @@
 $(function(){
 
-  var $container = $('.feed');
+  var $container = $('#feed');
 
   // initialize masonry
   $container.masonry({

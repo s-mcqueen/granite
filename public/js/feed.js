@@ -1,6 +1,8 @@
 // McQueen 12/25/13: this would be a lot cleaner in AngularJS. 
 // Porting it is probably a project for a later date though.
 
+// Edit 12/25/13: Using handlebars.js as a partial fix
+
 $(function(){
 
   // immediately grab images when pages loads
@@ -24,53 +26,17 @@ $(function(){
    * @param {JSON object} images - Images object from the backend
    */
   function populate(images) {
+
     // remove all old images, if they exist
     var img = $('.img');
     if (img != null) {
       $('.img').remove();
     }
 
-    // append new images to DOM
-    for (var i in images) {
-      appendImageToDom(images[i])
-    }
-
-    // reload masonry tiling
-    $('.feed').masonry( 'reload' );
-
+    appendImagesToDom(images);
+    
     setupJQueryEffects()
-  }
-
-  /*
-   * appendImageToDom
-   * Render an image correctly in HTML and append it to the DOM.
-   * 
-   * @param {JSON image from backend} image -- image for rendering, formatting 
-   *   in HTML and appending to the DOM
-   */
-  function appendImageToDom(image) {
-    var url = image.url,
-        largeRes = image.largeRes,
-        id = image.id,
-        hashtag = $('#searchbar').val();
-        user = image.user,
-        status = image.status;
-
-    // get img and font dimensions
-    var dim = getDim(image.size),
-        fontDim = getFontDim(image.size);
-
-    var style= "style='background: url(\"" + url + "\"); width:" + dim + "px; height:" + dim + "px; background-size:" + dim + "px " + dim + "px;'>"      
-
-    // @TODO: Fix this HTML sting. JESUS CHRIST.
-    var templ = "<div class='img' largeRes='" + largeRes + "' data-id='" + id + "' data-hashtag='" + hashtag + "' data-user='" + user + "' data-status='" + status + "'" + style +                    
-                  "<div class='img-layer' style= 'width:" + dim + "px; height: " + dim + "px; font-size:" + fontDim + "px;'>" + 
-                    "<div class='icon ion-minus-circled'> </div> " +
-                    "<div class='icon ion-ios7-plus'> </div>" +                  
-                  "</div>" +
-                "</div>";
-
-    $('.feed').append(templ);
+  
   }
 
   /* image dimension helper */
@@ -96,22 +62,52 @@ $(function(){
   }
 
   /*
+    * appendImageToDom
+    * Update the images object and display it on the DOM with handlebars
+    * 
+    * @param {list of JSON images from backend} images -- image for rendering, formatting 
+    *   in HTML and appending to the DOM
+    */
+  function appendImagesToDom(images) {
+
+    // TODO: do this on the server side
+    // add hashtag and dim attributes to each image
+    for (var i in images) {
+      images[i].hashtag = $('#searchbar').val();
+      images[i].dim = getDim(images[i].size);
+      images[i].fontDim = getFontDim(images[i].size);
+    }
+    
+    // send data to the img template
+    var source = $("#img-template").html();
+    var template = Handlebars.compile(source);
+    var data = {images: images};
+
+    // append image templates to the DOM
+    $("#feed").html(template(data));
+
+    // reload masonry tiling
+    $('#feed').masonry('reload');
+
+  }
+
+  /*
    * setupJQueryEffects
    * Setup handlers for hovering, modals and AJAX upvoting and downvoting 
    */
   function setupJQueryEffects() {
 
-    var UPVOTE_COLOR = "#36F343"
-    var DOWNVOTE_COLOR = "#FF5757"
+    var UPVOTE_COLOR = "#36F343";
+    var DOWNVOTE_COLOR = "#FF5757";
 
     // hover effects
     $('.img').mouseenter(function(e) {
         e.preventDefault();        
-        $(this).children().show()
+        $(this).children().show();
       });
     $('.img').mouseleave(function(e) {
       e.preventDefault();
-      $(this).children().hide()
+      $(this).children().hide();
     });
 
     // @TODO: we need a better way to track voting than with this boolean
