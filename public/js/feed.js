@@ -34,7 +34,7 @@ $(function(){
     }
 
     appendImagesToDom(images);
-    
+
     setupJQueryEffects()
   
   }
@@ -62,7 +62,7 @@ $(function(){
   }
 
   /*
-    * appendImageToDom
+    * appendImagesToDom
     * Update the images object and display it on the DOM with handlebars
     * 
     * @param {list of JSON images from backend} images -- image for rendering, formatting 
@@ -147,15 +147,17 @@ $(function(){
           $(".modal-img").remove();
         }
         
-        // @TODO: we need a better way to get modal url than reading the DOM
-        // Also the HTML string...
-        var largeRes = $(this).attr('largeRes')
-        var tempUrl = "<div class='modal-img' style='background: url(\"" + largeRes + "\");" +
-                      "width: 600px; height: 600px;'>" +
-                      "</div>";    
-
+        // show the modal
         $("#img-modal").modal("show");
-        $('.modal-body').append(tempUrl);           
+
+        // send data to the modal template
+        var source = $("#modal-template").html();
+        var template = Handlebars.compile(source);
+        var data = {url: $(this).attr('largeRes')};
+
+        // append image templates to the DOM
+        $(".modal-body").append(template(data));
+         
       }
 
       vote = false;
