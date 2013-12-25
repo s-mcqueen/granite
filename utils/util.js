@@ -73,35 +73,38 @@ exports.formatImagesForFrontend = function (images, res) {
  * formatImage
  * Format and resize a single image for the frontend
  *
- * @param {JSON image} image -
- * @param {JSON object with cutoffs} sizeCutoffs -
+ * @param {JSON image} image - image to be formatted
+ * @param {JSON object with cutoffs} sizeCutoffs - values for which to cutoff images sizing
+ * @return JSON object formatted with correct sizing, score, url, etc.
  */
 function formatImage(image, sizeCutoffs) {
-  // enum for image size
-  var BIG = 3, MEDIUM = 2, SMALL = 1
+
+  var LARGE = 3, MEDIUM = 2, SMALL = 1   // enum for image size
   var score = (image.upvotes) - (image.downvotes)
-  var size = 0 // should never stay 0
-  
-  // assign size of the image
+  var size = 0   // should never stay 0
+  var imgUrl = ""  // should never stay the empty string
+
+  // Send url for smallest file we can get away with -- far less data for frontend to retrieve
   if (score > sizeCutoffs.big) {
-    size = BIG
+    size = LARGE
+    imgUrl = image.largeRes
   } else if (score < sizeCutoffs.med) {
     size = SMALL
-  } else size = MEDIUM
+    imgUrl = image.smallRes
+  } else {
+    size = MEDIUM
+    imgUrl = image.mediumRes
+  }
 
-  // resize the image here based on size variable
-  // do we even need a size variable, or can we just use score?
-
-  var formattedImg = {
+  return {
     "id" : image.instagramId,
-    "url" : image.largeRes,
+    "url" : imgUrl,
+    "largeRes": image.largeRes,
     "score" : score,
     "size" : size,
     "user" : image.instagramUsername,
     "status" : image.caption
   };
-
-  return formattedImg
 }
 
 
@@ -115,19 +118,19 @@ function formatImage(image, sizeCutoffs) {
 function assignCutoffs(images) {
 
   // create sorted array of scores
-  scoreArray = [];
+  a = [];
   for (var i in images) {
-    scoreArray[i] = (images[i].upvotes) - (images[i].downvotes);
+    a[i] = (images[i].upvotes) - (images[i].downvotes);
   }
-  scoreArray.sort();
+  a.sort();
 
   // create cutoffs based on percentiles
-  topTenth = Math.round(scoreArray.length - (scoreArray.length / 10));
-  topThird = Math.round(scoreArray.length - (scoreArray.length / 3));
+  topTenth = Math.round(a.length - (a.length / 10));
+  topThird = Math.round(a.length - (a.length / 3));
 
   return {
-    big: scoreArray[topTenth], 
-    med: scoreArray[topThird]
+    big: a[topTenth], 
+    med: a[topThird]
   }
 }
 
