@@ -9,6 +9,8 @@ var request = require('request');
 
 exports.images = function(req, res) {
   var hashtag = req.params.hashtag;
+  // keeps track of which image window to return
+  // var imgWindowID = req.params.imgwindow;
   // go get images for that hashtag from mongo
   getPhotos(hashtag, res);
 };
