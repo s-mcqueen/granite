@@ -1,8 +1,3 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express'),
     index = require('./routes/index'),
     images = require('./routes/images'),
@@ -17,8 +12,7 @@ var app = express();
 
 // setup mongo
 if (app.get('env') == 'production') {
-  console.log("prod");
-  // TODO: set up production database
+  // @TODO: we should be hiding this.
   var dbString = 'mongodb://evan:smegma69@ds053678.mongolab.com:53678/exposure';
 } else {
   var dbString = 'mongodb://localhost/granite';
@@ -53,8 +47,6 @@ app.post('/vote', voting.vote);
 app.get('/callback', instagram.handshake);
 app.post('/callback', instagram.instagramCallback);
 app.post('/test', instagram.test)
-
-
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
