@@ -12,7 +12,8 @@ var ImageSchema = new Schema({
       mediumRes : String,
       largeRes : String,
       upvotes : Number,
-      downvotes : Number
+      downvotes : Number,
+      timestamp : { type : Date, default: Date.now }
     });
 
 mongoose.model('Image', ImageSchema);

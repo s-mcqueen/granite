@@ -3,9 +3,14 @@ var mongoose = require('mongoose');
 var Img = mongoose.model('Image');
 
 /*
-* Takes instagram .data array from api call and pushes to mongo
-*
-*/
+ * pushToMongo
+ * Takes instagram .data array from api call and saves in mongo DB with 
+ * all the correct 
+ *
+ * @param {JSON object of Instgram data} data -- includes all photos. We pull 
+ *   data out of this object.
+ * @param {function} callback -- what to do after each particular image is saved
+ */
 exports.pushToMongo = function (data, callback) {
   for (var i = 0; i < data.length; i++) {
     if (data[i].type == 'image') {
@@ -33,6 +38,9 @@ exports.pushToMongo = function (data, callback) {
           // if there was no error and we didnt find anything go ahead and insert the new photo
           if (!err && (data.length == 0)) {
             imageToSave.save(function (err) {
+
+              // McQueen: need to investigate this innerCallback more.
+
               innerCallback();
               if (err) {
                 console.log(err);
@@ -45,53 +53,84 @@ exports.pushToMongo = function (data, callback) {
   }
 };
 
+/*
+ * formatImagesForFrontend
+ * Format and resize backend images for sending to the frontend.
+ *
+ * @param {Array of JSON images} images - the images for formatting and returning
+ * @param {HTTP response object} res - object used to return from http request
+ */
 exports.formatImagesForFrontend = function (images, res) {
-
-  var sizeCutoffs = assignCutoffs(images);
-  
-  var returnImages = [];
-  for (var i in images) {
-    var score = (images[i].upvotes) - (images[i].downvotes)
-    var size = 0;
-
-    if (score > sizeCutoffs[1]) {
-      if (score > sizeCutoffs[0]) {
-        size = 3; // big
-      } else {
-        size = 2; // medium
-      }
-    } else {
-      size = 1; // small
-    }
-
-    var img = {
-      "id" : images[i].instagramId,
-      "url" : images[i].largeRes,
-      "score" : score,
-      "size" : size,
-      "user" : images[i].instagramUsername,
-      "status" : images[i].caption
-    };
-    returnImages[i] = img;
+  var fImgs = []
+  var sizeCutoffs = assignCutoffs(images)
+  for (var i in images) { 
+    fImgs[i] = formatImage(images[i], sizeCutoffs) 
   }
-  res.json(returnImages);
+  res.json(fImgs)
 }
 
+/*
+ * formatImage
+ * Format and resize a single image for the frontend
+ *
+ * @param {JSON image} image - image to be formatted
+ * @param {JSON object with cutoffs} sizeCutoffs - values for which to cutoff images sizing
+ * @return JSON object formatted with correct sizing, score, url, etc.
+ */
+function formatImage(image, sizeCutoffs) {
+
+  var LARGE = 3, MEDIUM = 2, SMALL = 1   // enum for image size
+  var score = (image.upvotes) - (image.downvotes)
+  var size = 0   // should never stay 0
+  var imgUrl = ""  // should never stay the empty string
+
+  // Send url for smallest file we can get away with -- far less data for frontend to retrieve
+  if (score > sizeCutoffs.big) {
+    size = LARGE
+    imgUrl = image.largeRes
+  } else if (score < sizeCutoffs.med) {
+    size = SMALL
+    imgUrl = image.smallRes
+  } else {
+    size = MEDIUM
+    imgUrl = image.mediumRes
+  }
+
+  return {
+    "id" : image.instagramId,
+    "url" : imgUrl,
+    "largeRes": image.largeRes,
+    "score" : score,
+    "size" : size,
+    "user" : image.instagramUsername,
+    "status" : image.caption
+  };
+}
+
+
+/*
+ * assignCutoffs
+ * Calculate the cutoff points for images that should be large, medium and small
+ * based on their score percentile.
+ *
+ * @param {Array of JSON images} images - the images to use for calculation
+ */
 function assignCutoffs(images) {
 
   // create sorted array of scores
-  scoreArray = [];
+  a = [];
   for (var i in images) {
-    scoreArray[i] = (images[i].upvotes) - (images[i].downvotes);
+    a[i] = (images[i].upvotes) - (images[i].downvotes);
   }
-  scoreArray.sort();
+  a.sort();
 
   // create cutoffs based on percentiles
-  topTenth = Math.round(scoreArray.length - (scoreArray.length / 10));
-  topThird = Math.round(scoreArray.length - (scoreArray.length / 3));
-  bigCutoff = scoreArray[topTenth];
-  mediumCutoff = scoreArray[topThird];
+  topTenth = Math.round(a.length - (a.length / 10));
+  topThird = Math.round(a.length - (a.length / 3));
 
-  return [bigCutoff, mediumCutoff];
+  return {
+    big: a[topTenth], 
+    med: a[topThird]
+  }
 }
 

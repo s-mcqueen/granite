@@ -33,6 +33,12 @@ function backloadPhotos (hashtag, res) {
     function (error, response, body) {
       if (!error && response.statusCode == 200) {
         var data = JSON.parse(body).data;
+
+        // McQueen: note that the pushToMongo callback seems to assume to we are 
+        // calling it on an array of images. But in pushToMongo it only ever gets 
+        // called on a single image. That seems weird (slow?). More investigation 
+        // required.
+
         util.pushToMongo(data, function() {
           Img.find({hashtags: { $in: [hashtag]}}, function(err, images){
             if (err) {

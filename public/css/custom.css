@@ -101,7 +101,7 @@ h1 {
 }
 
 
-.feed {
+#feed {
   position: absolute;
   min-width: 1200px;
   color: white;
