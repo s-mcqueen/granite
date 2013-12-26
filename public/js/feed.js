@@ -39,40 +39,49 @@ $(function(){
 
    // if new search, append first page of images to the DOM
    if (imageScrollTimestamp === 0) {
+
       // grab only the first 20 images
-      images = images.slice(0,20);
+      newImages = images.slice(0,5);
 
-      imageScrollTimestamp = images[images.length - 1].timestamp;
+      // update timestamp with last image's timestamp
+      imageScrollTimestamp = newImages[newImages.length - 1].timestamp;
 
-      appendImagesToDom(images);
+      appendImagesToDom(newImages);
 
       setupJQueryEffects()
     } 
 
-        // endless scrolling
+    // endless scrolling
     $(window).endlessScroll({
-      inflowPixels: 1000,     
-      insertAfter: false,
+      inflowPixels: 50,     
+      insertAfter: true,
+      fireOnce: true,
       content: function(p) {
         if (imageScrollTimestamp !== 0) {
 
+          console.log("woooo!!!");
+
+          // @TODO: change newTimeStamp increment 
           var newImages = [],
-              newTimestamp = imageScrollTimestamp + 30000;
+              newTimestamp = imageScrollTimestamp + 100000;
 
           // append images with specified timestamp criteria
           for (var i in images) {
-            if (images[i].timestamp < newTimestamp && images[i].timestamp > imageScrollTimestamp) {
-              newImages.append(images[i]);
+            if (images[i].timestamp < newTimestamp) {
+              //&& images[i].timestamp > imageScrollTimestamp
+              newImages.push(images[i]);
+              console.log("woooo");
             }
           }
 
-          imageScrollTimestamp = newTimestamp;
-          images = newImages;
+          // update image timestamp with last image's
+          imageScrollTimestamp = newImages[newImages.length - 1].timestamp;
+          
+          appendImagesToDom(newImages);
+
+          setupJQueryEffects()
+
         }
-
-        appendImagesToDom(images);
-
-        setupJQueryEffects()
       }
     });
   
