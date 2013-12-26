@@ -103,7 +103,8 @@ function formatImage(image, sizeCutoffs) {
     "score" : score,
     "size" : size,
     "user" : image.instagramUsername,
-    "status" : image.caption
+    "status" : image.caption,
+    "timestamp" : image.timestamp
   };
 }
 

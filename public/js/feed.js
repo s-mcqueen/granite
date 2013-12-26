@@ -5,6 +5,9 @@
 
 $(function(){
 
+  // placeholder to keep track of image pagination
+  var imageScrollTimestamp = 0;
+
   // immediately grab images when pages loads
   $.get("/images/" + $('#searchbar').val(), function(data) {    
     populate(data)
@@ -14,6 +17,7 @@ $(function(){
   $('#searchbar').bind('keypress', function(e) {
     if(e.keyCode==13){
       $.get("/images/" + $('#searchbar').val(), function(data) {    
+        imageScrollTimestamp = 0; // reset timestamp
         populate(data)
       });
     }
@@ -27,25 +31,50 @@ $(function(){
    */
   function populate(images) {
 
-    // endless scrolling
-    $(window).endlessScroll({
-      inflowPixels: 10,     
-      insertAfter: true,
-      content: function(p) {
-        $('#feed').append('<div class="img masonry-brick" id="id2" data-id="589845859648605344_214781474" data-hashtag="sunrise" data-user="undefined" data-status="" style="background-image: url(http://blog.heartland.org/wp-content/uploads/2013/07/Google.jpg); width: 80px; height: 80px; background-size: 80px; position: absolute; top: 0px; left: 160px; background-position: initial initial; background-repeat: initial initial;"><div class="img-layer" style="width: 80px; height: 80px; font-size: 15px; display: none;"><div class="icon ion-minus-circled"> </div> <div class="icon ion-ios7-plus"> </div></div></div>');
-        $('#feed').masonry('reload');
-      }
-    });
-
     // remove all old images, if they exist
     var img = $('.img');
     if (img != null) {
       $('.img').remove();
     }
 
-    appendImagesToDom(images);
+   // if new search, append first page of images to the DOM
+   if (imageScrollTimestamp === 0) {
+      // grab only the first 20 images
+      images = images.slice(0,20);
 
-    setupJQueryEffects()
+      imageScrollTimestamp = images[images.length - 1].timestamp;
+
+      appendImagesToDom(images);
+
+      setupJQueryEffects()
+    } 
+
+        // endless scrolling
+    $(window).endlessScroll({
+      inflowPixels: 1000,     
+      insertAfter: false,
+      content: function(p) {
+        if (imageScrollTimestamp !== 0) {
+
+          var newImages = [],
+              newTimestamp = imageScrollTimestamp + 30000;
+
+          // append images with specified timestamp criteria
+          for (var i in images) {
+            if (images[i].timestamp < newTimestamp && images[i].timestamp > imageScrollTimestamp) {
+              newImages.append(images[i]);
+            }
+          }
+
+          imageScrollTimestamp = newTimestamp;
+          images = newImages;
+        }
+
+        appendImagesToDom(images);
+
+        setupJQueryEffects()
+      }
+    });
   
   }
 
